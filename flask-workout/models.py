@@ -5,7 +5,7 @@ Created on Aug 30, 2013
 '''
 from sqlalchemy import Integer, String, Float
 from sqlalchemy.ext.declarative.api import declarative_base
-from sqlalchemy.schema import Column, ForeignKey
+from sqlalchemy.schema import Column, ForeignKey, Sequence
 from sqlalchemy.orm import relationship, backref
 
 Base = declarative_base()
@@ -16,7 +16,7 @@ class ExpenseContext(Base):
     """
     __tablename__ = 'contexts'
     
-    id = Column(Integer, primary_key=True, sqlite_autoincrement=True)
+    id = Column(Integer, Sequence('context_id_seq'), primary_key=True)
     name = Column(String)
 
     def __init__(self, name):
@@ -31,7 +31,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     context_id = Column(Integer, ForeignKey('contexts.id'))
-    context = relationship('Context', backref=backref('contexts'))
+    context = relationship('ExpenseContext', backref=backref('contexts'))
 
     def __init__(self, name, context):
         self.name = name
@@ -50,8 +50,10 @@ class Product(Base):
     category_id = Column(Integer, ForeignKey('categories.id'))
     category = relationship('Category', backref=backref('categories'))
 
-    def __init__(self, name, category):
+    def __init__(self, name, brand, kilo_weight, category):
         self.name = name
+        self.brand = brand
+        self.kilo_weight = kilo_weight
         self.category_id = category
 
 
