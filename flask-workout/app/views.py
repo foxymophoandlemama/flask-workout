@@ -8,6 +8,9 @@ from flask import Flask, render_template
 app = Flask(__name__)
 app.config.from_object('config')
 
+import models
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    products = models.Product.query.all()
+    return render_template('index.html', products=products)

@@ -3,12 +3,18 @@ Created on Aug 30, 2013
 
 @author: davide
 '''
-from sqlalchemy import Integer, String, Float, Date
+from sqlalchemy import Integer, String, Float, Date, create_engine
 from sqlalchemy.ext.declarative.api import declarative_base
 from sqlalchemy.schema import Column, ForeignKey, Sequence
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, backref, scoped_session, sessionmaker
+
+engine = create_engine('sqlite:///expenseapp.db', convert_unicode=True)
+db_session = scoped_session(sessionmaker(autocommit=False,
+                                         autoflush=False,
+                                         bind=engine))
 
 Base = declarative_base()
+Base.query = db_session.query_property()
 
 class ExpenseContext(Base):
     """Main expenses contexts
@@ -22,6 +28,9 @@ class ExpenseContext(Base):
     def __init__(self, name):
         self.name = name
 
+    def __unicode__(self):
+        return (self.name)
+    
 class Category(Base):
     """Categories of products inside a context
     (i.e. House maintenance) 
@@ -36,6 +45,9 @@ class Category(Base):
     def __init__(self, name, context):
         self.name = name
         self.context_id = context
+
+    def __unicode__(self):
+        return (self.name)
     
 class Product(Base):
     """A simple element that has been bought
@@ -57,6 +69,9 @@ class Product(Base):
         self.kilo_weight = kilo_weight
         self.expire_date = expire_date
         self.category_id = category
+
+    def __unicode__(self):
+        return (self.name)
 
 
 

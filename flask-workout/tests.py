@@ -4,24 +4,27 @@ from sqlalchemy.orm import sessionmaker
 
 #db = create_engine('postgres://davide:uj2Eecha@localhost/test', echo=True)
 db = create_engine('sqlite:///expenseapp.db', echo=False)
-#Base.metadata.create_all(db)
+Base.metadata.create_all(db)
 
 Session = sessionmaker(bind=db)
 session = Session()
 
 # -------- INSERT --------- #
 
-#category_1 = Category('Food', 2)
-#category_2 = Category('Technology', 2)
-#category_3 = Category('Cleaning', 2)
-#session.add_all([category_1, category_2, category_3])
+context = ExpenseContext('House')
+session.add(context)
 
-#products = []
-#products.append(Product('Bistecche', None, 2, 1))
-#products.append(Product('Cellulare', 'Nokia', None, 2))
-#products.append(Product('Detersivo piatti', 'Nelsen', 0.5, 3))
-#products.append(Product('Passata', 'Cirio', 1, 1))
-#session.add_all(products)
+category_1 = Category('Food', 2)
+category_2 = Category('Technology', 2)
+category_3 = Category('Cleaning', 2)
+session.add_all([category_1, category_2, category_3])
+
+products = []
+products.append(Product('Bistecche', None, 2, None, 1))
+products.append(Product('Cellulare', 'Nokia', None, None, 2))
+products.append(Product('Detersivo piatti', 'Nelsen', 0.5, None, 3))
+products.append(Product('Passata', 'Cirio', 1, '2013-09-05', 1))
+session.add_all(products)
 
 # -------- DELETE -------#
 
