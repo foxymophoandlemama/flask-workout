@@ -3,6 +3,7 @@ from sqlalchemy.ext.declarative.api import declarative_base
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.orm import relationship, backref
 
+#db = create_engine('postgres://davide:uj2Eecha@localhost/test', echo=True)
 db = create_engine('sqlite:///workout.db', echo=True)
 
 Base = declarative_base()
