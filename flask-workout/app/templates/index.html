@@ -5,12 +5,20 @@
 <title>Workout</title>
 </head>
 <body>
-{% for product in products %}
-	<p>{{ product.name }} <span></span>
-	{% if product.expire_date %}
-		{{ product.expire_date }}</p>
-	{% endif %}
-{% endfor %}
+{% if contexts %}
+	{% for context in contexts %}
+		<select onselect="{{url_for('get_categories_by_context', context=context.id)}}" method="POST">
+			<option id="{{context.id}}"> {{ context }} </option>
+		</select>
+	{% endfor %}
+{% endif %}
 
+{% if categories %}
+	{% for category in categories %}
+		<select>
+			<option id="{{category.id}}"> {{ category }} </option>
+		</select>
+	{% endfor %}
+{% endif %}
 </body>
 </html>
