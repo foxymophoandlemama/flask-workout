@@ -1,6 +1,8 @@
 from sqlalchemy import create_engine
 from models import *
 from sqlalchemy.orm import sessionmaker
+from datetime import date
+
 
 #db = create_engine('postgres://davide:uj2Eecha@localhost/test', echo=True)
 db = create_engine('sqlite:///expenseapp.db', echo=False)
@@ -23,7 +25,7 @@ products = []
 products.append(Product('Bistecche', None, 2, None, 1))
 products.append(Product('Cellulare', 'Nokia', None, None, 2))
 products.append(Product('Detersivo piatti', 'Nelsen', 0.5, None, 3))
-products.append(Product('Passata', 'Cirio', 1, '2013-09-05', 1))
+products.append(Product('Passata', 'Cirio', 1, date(2013,1,1), 1))
 session.add_all(products)
 
 # -------- DELETE -------#
@@ -34,7 +36,7 @@ session.add_all(products)
 
 # ------- QUERY --------#
 
-#session.commit()
+session.commit()
 #
 #contexts = session.query(ExpenseContext).all()
 #

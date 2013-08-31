@@ -3,18 +3,10 @@ Created on Aug 30, 2013
 
 @author: davide
 '''
-from sqlalchemy import Integer, String, Float, Date, create_engine
-from sqlalchemy.ext.declarative.api import declarative_base
-from sqlalchemy.schema import Column, ForeignKey, Sequence
-from sqlalchemy.orm import relationship, backref, scoped_session, sessionmaker
-
-engine = create_engine('sqlite:///expenseapp.db', convert_unicode=True)
-db_session = scoped_session(sessionmaker(autocommit=False,
-                                         autoflush=False,
-                                         bind=engine))
-
-Base = declarative_base()
-Base.query = db_session.query_property()
+from database import Base
+from sqlalchemy.schema import Column, Sequence, ForeignKey
+from sqlalchemy.types import Integer, String, Float, Date
+from sqlalchemy.orm import backref, relationship
 
 class ExpenseContext(Base):
     """Main expenses contexts

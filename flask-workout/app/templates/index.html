@@ -6,7 +6,10 @@
 </head>
 <body>
 {% for product in products %}
-	<p>{{ product }}</p>
+	<p>{{ product.name }} <span></span>
+	{% if product.expire_date %}
+		{{ product.expire_date }}</p>
+	{% endif %}
 {% endfor %}
 
 </body>
